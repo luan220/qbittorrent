@@ -1,0 +1,13 @@
+{
+    "name": "smontgomery/qbittorrent-web-api",
+    "description": "PHP library for accessing the QBittorrent web API.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Silas Montgomery",
+            "email": "nomsalis@reticent.net"
+        }
+    ],
+    "require": {}
+}
