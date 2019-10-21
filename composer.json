@@ -1,6 +1,7 @@
 {
     "name": "silasmontgomery/qbittorrent-web-api",
     "description": "A PHP library for accessing the QBittorrent web API.",
+    "version": "1.0.0-dev",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -9,5 +10,9 @@
             "email": "nomsalis@reticent.net"
         }
     ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {"silasmontgomery\\qBittorrentWebAPI\\": "src/"}
+    },
     "require": {}
 }
