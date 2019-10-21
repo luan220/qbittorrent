@@ -1,5 +1,5 @@
 {
-    "name": "smontgomery/qbittorrent-web-api",
+    "name": "silasmontgomery/qbittorrent-web-api",
     "description": "PHP library for accessing the QBittorrent web API.",
     "type": "library",
     "license": "MIT",
