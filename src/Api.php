@@ -35,7 +35,27 @@ class Api
         'setPreferences' => [
             '1' => null,
             '2' => '/api/v2/app/setPreferences'
-        ]
+        ],
+        'torrent_list' => [
+            '1' => null,
+            '2' => '/api/v2/torrents/info'
+        ],
+        'torrent_add' => [
+            '1' => null,
+            '2' => '/api/v2/torrents/add'
+        ],
+        'torrent_delete' => [
+            '1' => null,
+            '2' => '/api/v2/torrents/delete'
+        ],
+        'torrent_pause' => [
+            '1' => null,
+            '2' => '/api/v2/torrents/pause'
+        ],
+        'torrent_resume' => [
+            '1' => null,
+            '2' => '/api/v2/torrents/resume'
+        ],
     ];
 
     public function __construct(string $url, string $username, string $password, int $api_version = 2, bool $debug = false)
@@ -71,10 +91,46 @@ class Api
     public function preferences(array $data = null): string
     {
         if (!empty($data)) {
-            return $this->postData('setPreferences', $data);
+            return $this->postData('setPreferences', ['json' => json_encode($data)]);
         }
         
         return $this->getData('preferences');
+    }
+
+    public function torrentList(): string
+    {
+        return $this->getData('torrent_list');
+    }
+
+    public function torrentAdd(string $url): string
+    {
+        return $this->postData('torrent_add', ['urls' => $url]);
+    }
+
+    public function torrentDelete(string $hash, bool $deleteFiles = false): string
+    {
+        return $this->postData('torrent_delete', ['hashes' => $hash, 'deleteFiles' => $deleteFiles]);
+    }
+
+    public function torrentDeleteAll(bool $deleteFiles = false): string
+    {
+        $torrents = json_decode($this->torrentList());
+        $response = '';
+        foreach ($torrents as $torrent) {
+            $response .= $this->torrentDelete($torrent->hash, $deleteFiles);
+        }
+
+        return $response;
+    }
+
+    public function torrentPause(string $hash): string
+    {
+        return $this->postData('torrent_pause', ['hashes' => $hash]);
+    }
+
+    public function torrentResume(string $hash): string
+    {
+        return $this->postData('torrent_resume', ['hashes' => $hash]);
     }
 
     private function getData(string $endpoint): string
@@ -95,9 +151,7 @@ class Api
 
     private function postData(string $endpoint, array $data): string
     {
-        $this->curl->post($this->url . $this->endpoints[$endpoint][$this->api_version], [
-            'json' => json_encode($data),
-        ]);
+        $this->curl->post($this->url . $this->endpoints[$endpoint][$this->api_version], $data);
 
         if ($this->debug) {
             var_dump($this->curl->request_headers);
