@@ -70,11 +70,11 @@ class Api
 
     public function preferences(array $data = null): string
     {
-        if (empty($data)) {
-            return $this->getData('preferences');
+        if (!empty($data)) {
+            return $this->postData('setPreferences', $data);
         }
         
-        return $this->postData('setPreferences', $data);
+        return $this->getData('preferences');
     }
 
     private function getData(string $endpoint): string
