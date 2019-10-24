@@ -113,7 +113,7 @@ class Api
 
     public function torrentDelete(string $hash, bool $deleteFiles = false): string
     {
-        return $this->postData('torrent_delete', ['hashes' => $hash, 'deleteFiles' => $deleteFiles]);
+        return $this->postData('torrent_delete', ['hashes' => $hash, 'deleteFiles' => $deleteFiles ? 'true':'false']);
     }
 
     public function torrentDeleteAll(bool $deleteFiles = false): string
