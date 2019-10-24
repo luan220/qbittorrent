@@ -56,6 +56,10 @@ class Api
             '1' => null,
             '2' => '/api/v2/torrents/resume'
         ],
+        'set_torrent_location' => [
+            '1' => null,
+            '2' => '/api/v2/torrents/setLocation'
+        ]
     ];
 
     public function __construct(string $url, string $username, string $password, int $api_version = 2, bool $debug = false)
@@ -131,6 +135,11 @@ class Api
     public function torrentResume(string $hash): string
     {
         return $this->postData('torrent_resume', ['hashes' => $hash]);
+    }
+
+    public function setTorrentLocation(string $hash, string $location): string
+    {
+        return $this->postData('set_torrent_location', ['hashes' => $hash, 'location' => $location]);
     }
 
     private function getData(string $endpoint): string
