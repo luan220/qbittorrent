@@ -40,6 +40,10 @@ class qBittorrent
             '1' => null,
             '2' => '/api/v2/torrents/info'
         ],
+		'torrent_files' => [
+			'1' => null,
+			'2' => '/api/v2/torrents/files'
+		],
         'torrent_add' => [
             '1' => null,
             '2' => '/api/v2/torrents/add'
@@ -105,6 +109,11 @@ class qBittorrent
     {
         return $this->getData('torrent_list');
     }
+	
+	public function torrentFiles(string $hash): string
+	{
+		return $this->postData('torrent_files', ['hash' => $hash]);
+	}
 
     public function torrentAdd(string $url): string
     {
@@ -161,7 +170,7 @@ class qBittorrent
     private function postData(string $endpoint, array $data): string
     {
         $this->curl->post($this->url . $this->endpoints[$endpoint][$this->api_version], $data);
-
+        
         if ($this->debug) {
             var_dump($this->curl->request_headers);
             var_dump($this->curl->response_headers);
@@ -176,6 +185,7 @@ class qBittorrent
 
     private function authenticate(): bool
     {
+    	
         $this->curl->post($this->url . $this->endpoints['login'][$this->api_version], [
             'username' => $this->username,
             'password' => $this->password
