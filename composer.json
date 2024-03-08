@@ -1,5 +1,5 @@
 {
-    "name": "luan220/qBittorrent",
+    "name": "luan220/qbittorrent",
     "description": "An API wrapper for the QBittorrent web API.",
     "version": "1.1.0-dev",
     "type": "library",
