@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace silasmontgomery\QBittorrentWebApi;
+namespace luan220\qBittorrent;
 
 use Curl\Curl;
 
-class Api
+class qBittorrent
 {
     private $debug;
     private $url;
